@@ -11,12 +11,12 @@ export const Heading = ({
   ...props
 }: {
   className?: string;
-  as?: any;
-  children: any;
+  as?: React.ElementType;
+  children: React.ReactNode;
   size?: "sm" | "md" | "xl" | "2xl";
-  props?: React.HTMLAttributes<HTMLHeadingElement | AnimationProps>;
+  props?: React.HTMLAttributes<HTMLHeadingElement> & AnimationProps;
 } & MotionProps &
-  React.HTMLAttributes<HTMLHeadingElement | AnimationProps>) => {
+  React.HTMLAttributes<HTMLHeadingElement>) => {
   const sizeVariants = {
     sm: "text-xl md:text-2xl md:leading-snug",
     md: "text-3xl md:text-5xl md:leading-tight",
@@ -28,7 +28,7 @@ export const Heading = ({
       className={cn(
         "text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight",
         "font-medium",
-        "bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white",
+        "text-black dark:text-white",
         sizeVariants[size],
         className
       )}

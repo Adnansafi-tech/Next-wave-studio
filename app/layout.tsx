@@ -1,53 +1,27 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { ViewTransitions } from "next-view-transitions";
-import type { Viewport } from "next";
-import { NavBar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+'use client'
 
-export const metadata: Metadata = {
-  title: "Next Wave Studio | Software Development Agency",
-  description:
-    "Next Wave Studio is a software development agency that specializes in building web applications, mobile apps, websites, AI models, and more.",
-  openGraph: {
-    images: ["https://www.nextwavestudio.co/banner.png"],
-  },
-};
+import { cn } from '@/lib/utils'
+import '@mantine/tiptap/styles.css'
+import NoSSRReduxProvider from '@/features/NoSSRReduxProvider'
+import { Providers } from './Providers'
 
-export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#06b6d4" },
-    { media: "(prefers-color-scheme: dark)", color: "#06b6d4" },
-  ],
-};
+import '@/styles/tailwind.css'
+import { RootLayout } from '@/layouts/RootLayout'
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-export default function RootLayout({
+export default function DashboardXLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <ViewTransitions>
-      <html lang="en">
-        <body
-          className={cn(
-            inter.className,
-            "bg-charcoal antialiased h-full w-full"
-          )}
-        >
-          <NavBar />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </ViewTransitions>
-  );
+    <html lang="en" className="h-full bg-neutral-950 text-base antialiased">
+      <body className="flex min-h-full flex-col">
+        <Providers>
+          <NoSSRReduxProvider>
+            <RootLayout>{children}</RootLayout>
+          </NoSSRReduxProvider>
+        </Providers>
+      </body>
+    </html>
+  )
 }

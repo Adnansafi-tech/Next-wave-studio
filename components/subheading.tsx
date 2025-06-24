@@ -1,27 +1,30 @@
 import { cn } from "@/lib/utils";
-import { AnimationProps, MotionProps } from "framer-motion";
-import React from "react";
+import { MotionProps } from "framer-motion";
+import React, { ElementType, ReactNode } from "react";
 import Balancer from "react-wrap-balancer";
 
-export const Subheading = ({
+type MergedProps = Omit<MotionProps, 'onAnimationStart' | 'onDrag' | 'onDragEnd' | 'onDragStart' | 'style'>;
+
+interface SubheadingProps extends MergedProps, React.HTMLAttributes<HTMLHeadingElement> {
+  className?: string;
+  as?: ElementType;
+  children: ReactNode;
+}
+
+export const Subheading: React.FC<SubheadingProps> = ({
   className,
   as: Tag = "h2",
   children,
   ...props
-}: {
-  className?: string;
-  as?: any;
-  children: any;
-  props?: React.HTMLAttributes<HTMLHeadingElement | AnimationProps>;
-} & MotionProps &
-  React.HTMLAttributes<HTMLHeadingElement | AnimationProps>) => {
+}) => {
   return (
     <Tag
       className={cn(
-        "text-sm md:text-base  max-w-4xl text-left my-4 mx-auto",
-        "text-muted text-center font-normal",
+        "text-sm md:text-base max-w-4xl text-left my-4 mx-auto",
+        "text-muted text-center font-normal dark:text-muted-dark",
         className
       )}
+      {...props}
     >
       <Balancer>{children}</Balancer>
     </Tag>
